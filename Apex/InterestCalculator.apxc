@@ -1,0 +1,34 @@
+public class InterestCalculator {
+
+    // Method to calculate Simple Interest
+    public static Decimal calculateSimpleInterest(Decimal principal, Decimal rate, Decimal t) {
+        // SI = (P * R * T) / 100
+        return (principal * rate * t) / 100;
+    }
+
+    // Method to calculate Compound Interest
+    public static Decimal calculateCompoundInterest(Decimal principal, Decimal rate, Decimal t, Integer n) {
+        // CI = P * (1 + R/(100*n))^(n*T) - P
+        Double base = 1 + (rate / (100 * n)).doubleValue();
+        Double exponent = (n * t).doubleValue();
+        Double amount = principal.doubleValue() * Math.pow(base, exponent);
+        return amount - principal.doubleValue();
+    }
+
+    // Method to get total amount with Simple Interest
+    public static Decimal getTotalWithSimpleInterest(Decimal principal, Decimal rate, Decimal t) {
+        return principal + calculateSimpleInterest(principal, rate, t);
+    }
+
+    // Method to get total amount with Compound Interest
+    public static Decimal getTotalWithCompoundInterest(Decimal principal, Decimal rate, Decimal t, Integer n) {
+        return principal + calculateCompoundInterest(principal, rate, t, n);
+    }
+}
+/*
+ * System.debug('Simple Interest: ' + InterestCalculator.calculateSimpleInterest(10000, 5, 2));
+System.debug('Total Amount (SI): ' + InterestCalculator.getTotalWithSimpleInterest(10000, 5, 2));
+
+System.debug('Compound Interest: ' + InterestCalculator.calculateCompoundInterest(10000, 5, 2, 4)); // Quarterly
+System.debug('Total Amount (CI): ' + InterestCalculator.getTotalWithCompoundInterest(10000, 5, 2, 4));
+*/

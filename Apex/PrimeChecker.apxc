@@ -1,0 +1,14 @@
+public class PrimeChecker {
+    public static Boolean isPrime(Integer num) {
+        if (num <= 1) {
+            return false; // Numbers less than or equal to 1 are not prime
+        }
+        for (Integer i = 2; i <= Math.sqrt(num); i++) {
+            if (Math.Mod(num,i) == 0) { // Check if there’s a remainder
+                return false; // Not prime if divisible by any number other than 1 and itself
+            }
+        }
+        return true; // Prime if no divisors are found
+    }
+}
+//System.debug(PrimeChecker.isPrime(21));

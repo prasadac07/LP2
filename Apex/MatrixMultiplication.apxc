@@ -1,0 +1,67 @@
+public class MatrixMultiplication {
+    
+    // Method to multiply two matrices
+    public static List<List<Decimal>> multiplyMatrices(List<List<Decimal>> matrixA, List<List<Decimal>> matrixB) {
+        // Validate matrices
+        if (matrixA == null || matrixB == null || matrixA.isEmpty() || matrixB.isEmpty()) {
+            throw new IllegalArgumentException('Matrices cannot be null or empty');
+        }
+        
+        Integer aRows = matrixA.size();
+        Integer aCols = matrixA[0].size();
+        Integer bRows = matrixB.size();
+        Integer bCols = matrixB[0].size();
+        
+        // Check if multiplication is possible (columns of A must equal rows of B)
+        if (aCols != bRows) {
+            throw new IllegalArgumentException('Number of columns in Matrix A must match number of rows in Matrix B');
+        }
+        
+        // Initialize result matrix with zeros
+        List<List<Decimal>> result = new List<List<Decimal>>();
+        for (Integer i = 0; i < aRows; i++) {
+            result.add(new List<Decimal>());
+            for (Integer j = 0; j < bCols; j++) {
+                result[i].add(0);
+            }
+        }
+        
+        // Perform multiplication
+        for (Integer i = 0; i < aRows; i++) {          // Rows of A
+            for (Integer j = 0; j < bCols; j++) {      // Columns of B
+                Decimal sum = 0;
+                for (Integer k = 0; k < aCols; k++) {  // Columns of A / Rows of B
+                    sum += matrixA[i][k] * matrixB[k][j];
+                }
+                result[i][j] = sum;
+            }
+        }
+        
+        return result;
+    }
+    
+    // Helper method to print a matrix (for debugging)
+    public static void printMatrix(List<List<Decimal>> matrix) {
+        for (List<Decimal> row : matrix) {
+            String rowStr = '';
+            for (Decimal val : row) {
+                rowStr += val + ' ';
+            }
+            System.debug(rowStr);
+        }
+    }
+}
+
+
+/*
+ System.debug(MatrixMultiplication.multiplyMatrices(
+    new List<List<Decimal>>{
+        new List<Decimal>{1, 2},
+        new List<Decimal>{3, 4}
+    },
+    new List<List<Decimal>>{
+        new List<Decimal>{5, 6},
+        new List<Decimal>{7, 8}
+    }
+));
+ */

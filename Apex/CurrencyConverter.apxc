@@ -1,0 +1,59 @@
+public class CurrencyConverter {
+    // Conversion rates (example rates - in real implementation, you'd get these from a custom object or external API)
+    private static final Map<String, Decimal> CONVERSION_RATES = new Map<String, Decimal>{
+        'USD_TO_EUR' => 0.93,
+        'USD_TO_GBP' => 0.80,
+        'USD_TO_JPY' => 151.50,
+        'USD_TO_INR' => 83.30,
+        'EUR_TO_USD' => 1.07,
+        'GBP_TO_USD' => 1.25,
+        'JPY_TO_USD' => 0.0066,
+        'INR_TO_USD' => 0.012
+    };
+    
+    // Supported currencies
+    public static final Set<String> SUPPORTED_CURRENCIES = new Set<String>{
+        'USD', 'EUR', 'GBP', 'JPY', 'INR'
+    };
+    
+    // Main conversion method
+    public static Decimal convertCurrency(Decimal amount, String fromCurrency, String toCurrency) {
+        // Validate input
+        if (amount <= 0) {
+            throw new IllegalArgumentException('Amount must be positive');
+        }
+        
+        fromCurrency = fromCurrency.toUpperCase();
+        toCurrency = toCurrency.toUpperCase();
+        
+        if (!SUPPORTED_CURRENCIES.contains(fromCurrency)) {
+            throw new IllegalArgumentException('Unsupported source currency: ' + fromCurrency);
+        }
+        
+        if (!SUPPORTED_CURRENCIES.contains(toCurrency)) {
+            throw new IllegalArgumentException('Unsupported target currency: ' + toCurrency);
+        }
+        
+        // If same currency, return original amount
+        if (fromCurrency == toCurrency) {
+            return amount;
+        }
+        
+        // Check for direct conversion rate
+        String directRateKey = fromCurrency + '_TO_' + toCurrency;
+        if (CONVERSION_RATES.containsKey(directRateKey)) {
+            return amount * CONVERSION_RATES.get(directRateKey);
+        }
+        
+        // If no direct rate, convert through USD
+        if (fromCurrency != 'USD' && toCurrency != 'USD') {
+            Decimal usdAmount = convertCurrency(amount, fromCurrency, 'USD');
+            return convertCurrency(usdAmount, 'USD', toCurrency);
+        }
+        
+        // Shouldn't reach here if all currencies are properly supported
+        throw new IllegalArgumentException('Conversion not available between ' + fromCurrency + ' and ' + toCurrency);
+    }
+    
+}
+//System.debug(CurrencyConverter.convertCurrency(100,'INR', 'EUR'));

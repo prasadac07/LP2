@@ -1,0 +1,57 @@
+public class MatrixAddition {
+
+    // Method to add two matrices
+    public static List<List<Decimal>> addMatrices(List<List<Decimal>> matrixA, List<List<Decimal>> matrixB) {
+        // Validate matrices
+        if (matrixA == null || matrixB == null || matrixA.isEmpty() || matrixB.isEmpty()) {
+            throw new IllegalArgumentException('Matrices cannot be null or empty');
+        }
+
+        Integer aRows = matrixA.size();
+        Integer aCols = matrixA[0].size();
+        Integer bRows = matrixB.size();
+        Integer bCols = matrixB[0].size();
+
+        // Check if dimensions match
+        if (aRows != bRows || aCols != bCols) {
+            throw new IllegalArgumentException('Both matrices must have the same dimensions for addition');
+        }
+
+        // Initialize result matrix
+        List<List<Decimal>> result = new List<List<Decimal>>();
+        for (Integer i = 0; i < aRows; i++) {
+            List<Decimal> row = new List<Decimal>();
+            for (Integer j = 0; j < aCols; j++) {
+                row.add(matrixA[i][j] + matrixB[i][j]);
+            }
+            result.add(row);
+        }
+
+        return result;
+    }
+
+    // Helper method to print a matrix
+    public static void printMatrix(List<List<Decimal>> matrix) {
+        for (List<Decimal> row : matrix) {
+            String rowStr = '';
+            for (Decimal val : row) {
+                rowStr += val + ' ';
+            }
+            System.debug(rowStr.trim());
+        }
+    }
+}
+
+
+/*
+ System.debug(MatrixAddition.addMatrices(
+    new List<List<Decimal>>{
+        new List<Decimal>{1, 2},
+        new List<Decimal>{3, 4}
+    },
+    new List<List<Decimal>>{
+        new List<Decimal>{5, 6},
+        new List<Decimal>{7, 8}
+    }
+));
+ */

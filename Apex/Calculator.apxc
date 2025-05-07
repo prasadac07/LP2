@@ -1,0 +1,59 @@
+public class Calculator {
+    
+    public static Double evaluate(String expression) {
+        List<String> parts = expression.split(' ');
+        
+        // Handle scientific operations (single operand)
+        if (parts.size() == 2) {
+            String operator = parts[0].toLowerCase();
+            Double operand = Double.valueOf(parts[1]);
+            
+            switch on operator {
+                when 'sqrt' { return Math.sqrt(operand); }
+                when 'sin' { return Math.sin(operand); }
+                when 'cos' { return Math.cos(operand); }
+                when 'tan' { return Math.tan(operand); }
+                when 'log' { return Math.log(operand); }
+                when 'exp' { return Math.exp(operand); }
+                when 'fact' { return factorial(operand.intValue()); }
+            }
+        }
+        
+        // Handle basic operations (two operands)
+        if (parts.size() == 3) {
+            Double operand1 = Double.valueOf(parts[0]);
+            Double operand2 = Double.valueOf(parts[2]);
+            String operator = parts[1];
+            
+            switch on operator {
+                when '+' { return operand1 + operand2; }
+                when '-' { return operand1 - operand2; }
+                when '*' { return operand1 * operand2; }
+                when '/' { return operand1 / operand2; }
+                when '^' { return Math.pow(operand1, operand2); } // Power operation
+                when 'mod' { return Math.mod(operand1.intValue(), operand2.intValue()); }
+            }
+        }
+        
+        // If we get here, the expression is invalid
+        throw new IllegalArgumentException('Invalid expression: ' + expression);
+    }
+    
+    private static Double factorial(Integer n) {
+        if (n < 0) throw new IllegalArgumentException('Factorial requires non-negative integer');
+        Double result = 1;
+        for (Integer i = 2; i <= n; i++) {
+            result *= i;
+        }
+        return result;
+    }
+}
+
+/*
+ *
+ * System.debug( Calculator.evaluate( 'fact 5' ) );
+System.debug( Calculator.evaluate( '2 + 3' ) ) ;
+System.debug( Calculator.evaluate( '2 * 3' ) ) ;
+System.debug( Calculator.evaluate( '2 - 3' ) ) ;
+System.debug( Calculator.evaluate( '2 / 3' ) ) ;
+*/

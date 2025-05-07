@@ -1,0 +1,28 @@
+public class Fibonacci {
+
+    // Get the nth Fibonacci number (recursive)
+    public static Integer fibonacciNth(Integer n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException('Input must be a positive integer');
+        }
+        if (n == 1 || n == 2) {
+            return 1;
+        }
+        return fibonacciNth(n - 1) + fibonacciNth(n - 2);
+    }
+
+    // Print the first 'count' Fibonacci numbers
+    public static void printFibonacciSeries(Integer count) {
+        if (count <= 0) {
+            throw new IllegalArgumentException('Count must be a positive integer');
+        }
+        for (Integer i = 1; i <= count; i++) {
+            System.debug('Fibonacci #' + i + ' = ' + fibonacciNth(i));
+        }
+    }
+}
+
+/*
+ * System.debug(Fibonacci.fibonacciNth(10)); // prints 55
+Fibonacci.printFibonacciSeries(10);       // prints first 10 numbers
+*/

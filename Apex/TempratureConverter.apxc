@@ -1,0 +1,45 @@
+public class TemperatureConverter {
+    
+    // Unit codes: 1 = Celsius, 2 = Fahrenheit, 3 = Kelvin
+    public static Decimal convert(Integer fromUnit, Integer toUnit, Decimal value) {
+        if (fromUnit == toUnit) return round(value);
+
+        Decimal celsius;
+
+        // Convert input to Celsius
+        if (fromUnit == 1) {
+            celsius = value;
+        } else if (fromUnit == 2) {
+            celsius = (value - 32) * 5 / 9;
+        } else if (fromUnit == 3) {
+            celsius = value - 273.15;
+        } else {
+            throw new IllegalArgumentException('Invalid source unit');
+        }
+
+        // Convert from Celsius to target unit
+        Decimal result;
+        if (toUnit == 1) {
+            result = celsius;
+        } else if (toUnit == 2) {
+            result = (celsius * 9 / 5) + 32;
+        } else if (toUnit == 3) {
+            result = celsius + 273.15;
+        } else {
+            throw new IllegalArgumentException('Invalid target unit');
+        }
+
+        return round(result);
+    }
+
+    // Round to 2 decimal places
+    private static Decimal round(Decimal val) {
+        return val.setScale(2);
+    }
+}
+
+/*
+ * System.debug('Celsius to Fahrenheit: ' + TemperatureConverter.convert(1, 2, 100.5));   // 212.9
+System.debug('Fahrenheit to Kelvin: ' + TemperatureConverter.convert(2, 3, 98.6));     // ~310.15
+System.debug('Kelvin to Celsius: ' + TemperatureConverter.convert(3, 1, 310.15));      // 37.0
+*/

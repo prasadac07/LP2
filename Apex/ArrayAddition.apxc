@@ -1,0 +1,20 @@
+public class ArrayAddition {
+    
+ 
+    public static Integer performArrayAddition(List<Integer> numbers) {
+        Integer sum = 0;
+  
+        for (Integer num : numbers) {
+            sum += num;
+        }
+        
+        return sum;
+    }
+}
+
+/**
+ * Test Cases:
+ * System.debug(ArrayAddition.performArrayAddition(new List<Integer>{1, 2, 3, 4}));
+ * System.debug(ArrayAddition.performArrayAddition(new List<Integer>{5, 10, 15}));
+ * System.debug(ArrayAddition.performArrayAddition(new List<Integer>{100, 200, 300}));
+ */
